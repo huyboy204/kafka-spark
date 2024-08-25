@@ -1,0 +1,51 @@
+
+nano apache-spark-install.sh
+
+
+
+
+#!/bin/bash
+
+# Update and upgrade the system
+sudo apt update
+sudo apt upgrade -y
+
+# Install Java Development Kit (JDK)
+sudo apt install -y openjdk-11-jdk
+
+# Install Scala
+sudo apt install -y scala
+
+# Install Python pip
+sudo apt install -y python3-pip
+
+# Download and extract Apache Spark
+spark_version="3.4.0"
+wget https://archive.apache.org/dist/spark/spark-3.4.0/spark-3.4.0-bin-hadoop3.tgz
+tar -xvf spark-$spark_version-bin-hadoop3.tgz
+
+# Set up environment variables
+echo "export SPARK_HOME=$HOME/spark-$spark_version-bin-hadoop3" >> ~/.bashrc
+echo "export PATH=\$PATH:\$SPARK_HOME/bin:\$SPARK_HOME/sbin" >> ~/.bashrc
+echo "export PYSPARK_PYTHON=python3" >> ~/.bashrc
+
+# Install PySpark (optional)
+pip3 install pyspark
+
+# Reload the .bashrc to apply the environment variables
+source ~/.bashrc
+
+# Clean up downloaded files
+rm spark-$spark_version-bin-hadoop3.tgz
+
+echo "Apache Spark installation completed."
+
+
+
+chmod +x apache-spark-install.sh
+
+./apache-spark-install.sh
+
+
+
+
